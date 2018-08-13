@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cc65a280-b173-49d8-819f-cfd5eb609aa0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/TrainModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/TrainModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TransformData.py" beforeDir="false" afterPath="$PROJECT_DIR$/TransformData.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testData.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/transform_data.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PrepareData.py" beforeDir="false" afterPath="$PROJECT_DIR$/PrepareData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ass.csv" beforeDir="false" afterPath="$PROJECT_DIR$/ass.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clean-peril-data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lol.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testData.csv" beforeDir="false" afterPath="$PROJECT_DIR$/testData.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainData.csv" beforeDir="false" afterPath="$PROJECT_DIR$/trainData.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,30 +43,30 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="csv" value="22" />
+          <entry key="csv" value="27" />
           <entry key="h5" value="3" />
-          <entry key="py" value="8" />
+          <entry key="py" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSV" value="22" />
+          <entry key="CSV" value="27" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="8" />
+          <entry key="Python" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="csv" value="8" />
-          <entry key="dummy" value="12" />
-          <entry key="py" value="2342" />
+          <entry key="dummy" value="21" />
+          <entry key="py" value="3198" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSV" value="8" />
-          <entry key="PLAIN_TEXT" value="12" />
-          <entry key="Python" value="2342" />
+          <entry key="PLAIN_TEXT" value="21" />
+          <entry key="Python" value="3198" />
         </counts>
       </usages-collector>
     </session>
@@ -85,10 +88,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TransformData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="57" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="57" />
+            <state relative-caret-position="165">
+              <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SplitData.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="43" lean-forward="true" selection-start-line="8" selection-start-column="43" selection-end-line="8" selection-end-column="43" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -106,8 +121,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PrepareData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+            <state>
+              <caret lean-forward="true" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -116,10 +131,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trainData.csv">
+        <entry file="file://$PROJECT_DIR$/ass.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="3463" column="63" lean-forward="true" selection-start-line="3463" selection-start-column="63" selection-end-line="3463" selection-end-column="63" />
+            <state relative-caret-position="210">
+              <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -156,6 +171,7 @@
         <option value="$PROJECT_DIR$/Stores/ass.csv" />
         <option value="$PROJECT_DIR$/PostTrain.py" />
         <option value="$PROJECT_DIR$/TrainModel.py" />
+        <option value="$PROJECT_DIR$/split_data.py" />
         <option value="$PROJECT_DIR$/PrepareData.py" />
       </list>
     </option>
@@ -448,13 +464,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TransformData.py">
+    <entry file="file://$PROJECT_DIR$/clean-peril-data.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="57" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-495" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ass.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -468,24 +486,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ass.csv">
+    <entry file="file://$PROJECT_DIR$/TransformData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-80314">
-          <caret line="4304" column="32" selection-start-line="4304" selection-start-column="32" selection-end-line="4304" selection-end-column="32" />
+        <state relative-caret-position="165">
+          <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trainData.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="3463" column="63" lean-forward="true" selection-start-line="3463" selection-start-column="63" selection-end-line="3463" selection-end-column="63" />
+        <state relative-caret-position="434">
+          <caret line="3055" column="20" selection-start-line="3055" selection-start-column="20" selection-end-line="3055" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SplitData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="43" lean-forward="true" selection-start-line="8" selection-start-column="43" selection-end-line="8" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PrepareData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+        <state>
+          <caret lean-forward="true" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
