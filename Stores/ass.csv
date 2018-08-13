@@ -1,0 +1,278 @@
+,support,itemsets
+0,0.3708478599981533,frozenset(['CRCKSCRN'])
+1,0.10793630192164794,frozenset(['LOST'])
+2,0.07933224106167372,frozenset(['LQDDMG'])
+3,0.2116792838102509,frozenset(['MLFUNC'])
+4,0.08967712087135073,frozenset(['OTHER'])
+5,0.05145171111070218,frozenset(['STOLEN'])
+6,0.08907295709183241,frozenset(['UNRECOV'])
+7,0.010603318601616521,frozenset(['accidentally'])
+8,0.014445213988785352,frozenset(['ago'])
+9,0.018761320946293097,frozenset(['also'])
+10,0.01617400177405936,frozenset(['app'])
+11,0.07068618511936468,frozenset(['back'])
+12,0.011449147892942178,frozenset(['bag'])
+13,0.02046893857217697,frozenset(['battery'])
+14,0.029383041301841037,frozenset(['black'])
+15,0.012594453515948213,frozenset(['blank'])
+16,0.012284229257192846,frozenset(['bottom'])
+17,0.019042069829282207,frozenset([u'break'])
+18,0.037198249911777434,frozenset([u'call'])
+19,0.014598616220673833,frozenset(['camera'])
+20,0.010811600400539415,frozenset(['cannot'])
+21,0.023610020259842535,frozenset(['cant'])
+22,0.03974274022309114,frozenset(['car'])
+23,0.023143055397910246,frozenset(['case'])
+24,0.013648890300956614,frozenset(['cause'])
+25,0.015374421138632138,frozenset(['cell'])
+26,0.06955781562387076,frozenset([u'charge'])
+27,0.020798053127003533,frozenset(['charger'])
+28,0.03440216039848103,frozenset([u'come'])
+29,0.01225361394976712,frozenset(['concrete'])
+30,0.013459335950724988,frozenset(['corner'])
+31,0.013849192578263229,frozenset(['could'])
+32,0.12312336714967742,frozenset([u'crack'])
+33,0.024165574096453524,frozenset(['damage'])
+34,0.025972528624091086,frozenset(['day'])
+35,0.03930240090777643,frozenset(['device'])
+36,0.010813066026958732,frozenset([u'die'])
+37,0.10547404953719589,frozenset([u'drop'])
+38,0.01651402710334083,frozenset(['even'])
+39,0.011624371673740485,frozenset(['face'])
+40,0.0728188344068504,frozenset(['fell'])
+41,0.024129666249180268,frozenset([u'find'])
+42,0.011649450170248793,frozenset(['fine'])
+43,0.013948203785257069,frozenset(['floor'])
+44,0.010814694500757973,frozenset(['friend'])
+45,0.011595710534873847,frozenset(['front'])
+46,0.08401214906593185,frozenset([u'get'])
+47,0.014780353896669103,frozenset(['glas'])
+48,0.09700435730734464,frozenset([u'go'])
+49,0.015291206127490934,frozenset([u'grind'])
+50,0.029653367952515008,frozenset(['hand'])
+51,0.010135458079094647,frozenset(['happen'])
+52,0.014093463648149345,frozenset([u'hear'])
+53,0.012249379917889094,frozenset(['help'])
+54,0.019538428643290792,frozenset(['hit'])
+55,0.01253517706965585,frozenset(['hold'])
+56,0.02006475137520541,frozenset(['home'])
+57,0.010839447302506433,frozenset(['im'])
+58,0.011364385831691696,frozenset([u'issue'])
+59,0.0241660626385933,frozenset(['it'])
+60,0.01431216767938738,frozenset(['keep'])
+61,0.01946954420158291,frozenset(['know'])
+62,0.014470618180053508,frozenset([u'land'])
+63,0.012633699734509916,frozenset(['last'])
+64,0.039930177557383754,frozenset([u'leave'])
+65,0.013758649435025442,frozenset([u'line'])
+66,0.013169141919700283,frozenset([u'look'])
+67,0.037483965639854226,frozenset([u'lose'])
+68,0.021482826359584276,frozenset(['make'])
+69,0.010486068488071185,frozenset(['month'])
+70,0.01601115439413528,frozenset(['need'])
+71,0.010309867622993334,frozenset(['notice'])
+72,0.027320904929862447,frozenset(['on'])
+73,0.01550828168492973,frozenset(['one'])
+74,0.01380326961712464,frozenset(['onto'])
+75,0.019045652471640535,frozenset(['park'])
+76,0.012161442332730093,frozenset(['person'])
+77,0.43221534807243256,frozenset(['phone'])
+78,0.010739784705992898,frozenset(['pick'])
+79,0.013345017090018287,frozenset(['place'])
+80,0.011294768576774153,frozenset(['plug'])
+81,0.046310700750189025,frozenset(['pocket'])
+82,0.02657058562686226,frozenset(['power'])
+83,0.020755387113463423,frozenset(['put'])
+84,0.010118684798962467,frozenset([u'realize'])
+85,0.01606668535068939,frozenset([u'receive'])
+86,0.010407250356187931,frozenset([u'repair'])
+87,0.012064385294295342,frozenset(['replacement'])
+88,0.011222790034847711,frozenset(['right'])
+89,0.023718639462251896,frozenset([u'run'])
+90,0.022011428954817832,frozenset([u'say'])
+91,0.21845959732076978,frozenset(['screen'])
+92,0.014125544581994389,frozenset(['see'])
+93,0.016036721432783358,frozenset([u'shatter'])
+94,0.011752695409120658,frozenset(['shut'])
+95,0.010438842747893202,frozenset(['side'])
+96,0.013193243331929045,frozenset(['since'])
+97,0.011835259030742165,frozenset([u'slip'])
+98,0.013063453970129556,frozenset(['someone'])
+99,0.014166582121735256,frozenset(['son'])
+100,0.02502801382053144,frozenset(['sprint'])
+101,0.023341892048797542,frozenset([u'start'])
+102,0.012836119027755544,frozenset(['stay'])
+103,0.01354442370673532,frozenset([u'steal'])
+104,0.028064466066595784,frozenset(['still'])
+105,0.021560748830877947,frozenset(['stop'])
+106,0.027284345693069492,frozenset(['store'])
+107,0.047654191634562665,frozenset([u'take'])
+108,0.010820882701195089,frozenset([u'tell'])
+109,0.013977190618883554,frozenset(['think'])
+110,0.030678817903896923,frozenset(['time'])
+111,0.01582029726486426,frozenset(['top'])
+112,0.021736379730126064,frozenset([u'touch'])
+113,0.03470863916749814,frozenset([u'try'])
+114,0.04826055385370996,frozenset(['turn'])
+115,0.011384171788352472,frozenset(['unable'])
+116,0.03780029667535675,frozenset(['use'])
+117,0.01831642190434052,frozenset([u'walk'])
+118,0.02098060503989842,frozenset(['water'])
+119,0.011235817825241638,frozenset(['way'])
+120,0.010972005069764632,frozenset(['week'])
+121,0.012413692924232488,frozenset(['well'])
+122,0.10318034419096526,frozenset(['work'])
+123,0.023805029997301618,frozenset(['would'])
+124,0.015266779020502321,frozenset(['yesterday'])
+125,0.022794399157492796,"frozenset(['CRCKSCRN', 'back'])"
+126,0.015587262664192907,"frozenset(['CRCKSCRN', 'black'])"
+127,0.010062258181818775,"frozenset([u'break', 'CRCKSCRN'])"
+128,0.01166052379208363,"frozenset(['CRCKSCRN', u'call'])"
+129,0.016563044164697976,"frozenset(['car', 'CRCKSCRN'])"
+130,0.014866825855408789,"frozenset(['case', 'CRCKSCRN'])"
+131,0.0218032285795849,"frozenset([u'charge', 'CRCKSCRN'])"
+132,0.01185382363205351,"frozenset(['CRCKSCRN', u'come'])"
+133,0.08625146338726784,"frozenset(['CRCKSCRN', u'crack'])"
+134,0.011116125000997441,"frozenset(['device', 'CRCKSCRN'])"
+135,0.0650289485644922,"frozenset(['CRCKSCRN', u'drop'])"
+136,0.04141632274657088,"frozenset(['CRCKSCRN', 'fell'])"
+137,0.010586382474104417,"frozenset(['CRCKSCRN', 'floor'])"
+138,0.028369967751333353,"frozenset(['CRCKSCRN', u'get'])"
+139,0.01002179060790764,"frozenset(['glas', 'CRCKSCRN'])"
+140,0.027664675748882175,"frozenset([u'go', 'CRCKSCRN'])"
+141,0.01337872649766257,"frozenset(['CRCKSCRN', u'grind'])"
+142,0.01691186325249535,"frozenset(['CRCKSCRN', 'hand'])"
+143,0.015124938952588452,"frozenset(['CRCKSCRN', 'hit'])"
+144,0.010116079240883681,"frozenset(['CRCKSCRN', u'land'])"
+145,0.011195431675020465,"frozenset([u'leave', 'CRCKSCRN'])"
+146,0.011688533541430571,"frozenset(['on', 'CRCKSCRN'])"
+147,0.17671774266173065,"frozenset(['phone', 'CRCKSCRN'])"
+148,0.021478266632946403,"frozenset(['pocket', 'CRCKSCRN'])"
+149,0.13385908067117222,"frozenset(['screen', 'CRCKSCRN'])"
+150,0.010407087508808009,"frozenset(['CRCKSCRN', u'shatter'])"
+151,0.010634259603802095,"frozenset([u'start', 'CRCKSCRN'])"
+152,0.014351413897949084,"frozenset(['CRCKSCRN', 'still'])"
+153,0.011543273678538295,"frozenset(['CRCKSCRN', u'take'])"
+154,0.010096863250052641,"frozenset(['CRCKSCRN', 'time'])"
+155,0.010629374182404373,"frozenset([u'touch', 'CRCKSCRN'])"
+156,0.015832429394668605,"frozenset(['turn', 'CRCKSCRN'])"
+157,0.011536434088581484,"frozenset(['use', 'CRCKSCRN'])"
+158,0.040991779627108815,"frozenset(['CRCKSCRN', 'work'])"
+159,0.010957348805571464,"frozenset(['back', 'LOST'])"
+160,0.010684905138958483,"frozenset(['cell', 'LOST'])"
+161,0.011504678849496288,"frozenset(['LOST', u'get'])"
+162,0.018259099626607243,"frozenset([u'go', 'LOST'])"
+163,0.010336330322230997,"frozenset(['know', 'LOST'])"
+164,0.011714589122218424,"frozenset([u'leave', 'LOST'])"
+165,0.02928883409255496,"frozenset(['LOST', u'lose'])"
+166,0.010572703294190794,"frozenset(['park', 'LOST'])"
+167,0.04281371611369939,"frozenset(['phone', 'LOST'])"
+168,0.011284020649699163,"frozenset(['work', 'LOST'])"
+169,0.011674610090447063,"frozenset(['LQDDMG', u'crack'])"
+170,0.010582229865916353,"frozenset([u'drop', 'LQDDMG'])"
+171,0.033180967896430366,"frozenset(['phone', 'LQDDMG'])"
+172,0.01654871359526466,"frozenset(['screen', 'LQDDMG'])"
+173,0.012811854768146858,"frozenset(['water', 'LQDDMG'])"
+174,0.010085301086078031,"frozenset(['work', 'LQDDMG'])"
+175,0.011859523290350853,"frozenset(['back', 'MLFUNC'])"
+176,0.01422862697348633,"frozenset(['battery', 'MLFUNC'])"
+177,0.015441188564401008,"frozenset([u'call', 'MLFUNC'])"
+178,0.03657316024393886,"frozenset([u'charge', 'MLFUNC'])"
+179,0.01615022605659044,"frozenset(['MLFUNC', u'get'])"
+180,0.020558993173274986,"frozenset([u'go', 'MLFUNC'])"
+181,0.01139166276782898,"frozenset(['on', 'MLFUNC'])"
+182,0.08398983897488226,"frozenset(['phone', 'MLFUNC'])"
+183,0.013384426155959913,"frozenset(['power', 'MLFUNC'])"
+184,0.04058954659869634,"frozenset(['screen', 'MLFUNC'])"
+185,0.010444705253570469,"frozenset(['sprint', 'MLFUNC'])"
+186,0.014813900456933463,"frozenset([u'take', 'MLFUNC'])"
+187,0.014603501642071555,"frozenset([u'try', 'MLFUNC'])"
+188,0.02174818616517056,"frozenset(['turn', 'MLFUNC'])"
+189,0.013709143831528523,"frozenset(['use', 'MLFUNC'])"
+190,0.02354903391606097,"frozenset(['work', 'MLFUNC'])"
+191,0.0110306301265373,"frozenset(['would', 'MLFUNC'])"
+192,0.022243242200139755,"frozenset(['OTHER', u'crack'])"
+193,0.015429463553046476,"frozenset([u'drop', 'OTHER'])"
+194,0.042398618142272915,"frozenset(['phone', 'OTHER'])"
+195,0.02727074793684583,"frozenset(['screen', 'OTHER'])"
+196,0.01001258973094193,"frozenset(['work', 'OTHER'])"
+197,0.018240372177915975,"frozenset(['phone', 'STOLEN'])"
+198,0.012054125909360126,"frozenset(['fell', 'UNRECOV'])"
+199,0.010317440026159802,"frozenset([u'go', 'UNRECOV'])"
+200,0.034874092105501,"frozenset(['phone', 'UNRECOV'])"
+201,0.011952997686427273,"frozenset([u'go', 'back'])"
+202,0.03022659072984776,"frozenset(['phone', 'back'])"
+203,0.010268830083252465,"frozenset(['screen', 'back'])"
+204,0.012192383334915667,"frozenset(['phone', 'black'])"
+205,0.016243293334217052,"frozenset(['screen', 'black'])"
+206,0.014833442142524352,"frozenset(['phone', u'call'])"
+207,0.018024273704756722,"frozenset(['phone', 'car'])"
+208,0.010818439990496228,"frozenset(['case', 'phone'])"
+209,0.03153905918834586,"frozenset(['phone', u'charge'])"
+210,0.010187406393290428,"frozenset(['charger', 'phone'])"
+211,0.015241863371373938,"frozenset(['phone', u'come'])"
+212,0.02751143636437362,"frozenset([u'drop', u'crack'])"
+213,0.012948320872523233,"frozenset(['fell', u'crack'])"
+214,0.05665932604960429,"frozenset(['phone', u'crack'])"
+215,0.057792988084945755,"frozenset(['screen', u'crack'])"
+216,0.016373164119706504,"frozenset(['work', u'crack'])"
+217,0.010635480959151527,"frozenset(['phone', 'damage'])"
+218,0.010456430264925003,"frozenset(['phone', 'day'])"
+219,0.05114417383371556,"frozenset(['phone', u'drop'])"
+220,0.04011566072311728,"frozenset(['screen', u'drop'])"
+221,0.012942458366845967,"frozenset([u'drop', 'work'])"
+222,0.036404287510957596,"frozenset(['phone', 'fell'])"
+223,0.01046107141525284,"frozenset(['pocket', 'fell'])"
+224,0.018606941630125072,"frozenset(['screen', 'fell'])"
+225,0.010022930539567109,"frozenset(['phone', u'find'])"
+226,0.038027631617730755,"frozenset(['phone', u'get'])"
+227,0.0157955444631158,"frozenset(['screen', u'get'])"
+228,0.04043011901375067,"frozenset([u'go', 'phone'])"
+229,0.017737173773950576,"frozenset([u'go', 'screen'])"
+230,0.015693764850663254,"frozenset(['phone', 'hand'])"
+231,0.0157164006364727,"frozenset([u'leave', 'phone'])"
+232,0.01589105445144127,"frozenset(['phone', u'lose'])"
+233,0.011955928939265907,"frozenset(['on', 'phone'])"
+234,0.024254651613271998,"frozenset(['pocket', 'phone'])"
+235,0.012050543267001796,"frozenset(['phone', 'power'])"
+236,0.011086568201541221,"frozenset(['phone', u'run'])"
+237,0.094416793864041,"frozenset(['phone', 'screen'])"
+238,0.012709912308314385,"frozenset(['phone', 'still'])"
+239,0.02052235251279207,"frozenset(['phone', u'take'])"
+240,0.011426349259752807,"frozenset(['phone', 'time'])"
+241,0.014517518225471643,"frozenset([u'try', 'phone'])"
+242,0.02197063568614685,"frozenset(['turn', 'phone'])"
+243,0.01853822003579711,"frozenset(['phone', 'use'])"
+244,0.043910574641178014,"frozenset(['phone', 'work'])"
+245,0.010958977279370705,"frozenset(['phone', 'would'])"
+246,0.012025464770493488,"frozenset([u'touch', 'screen'])"
+247,0.010245135789473513,"frozenset(['turn', 'screen'])"
+248,0.026612518827192712,"frozenset(['screen', 'work'])"
+249,0.01130307379315028,"frozenset(['phone', u'charge', 'CRCKSCRN'])"
+250,0.01997086986067918,"frozenset(['CRCKSCRN', u'drop', u'crack'])"
+251,0.04025880357007054,"frozenset(['phone', 'CRCKSCRN', u'crack'])"
+252,0.04290971464416463,"frozenset(['screen', 'CRCKSCRN', u'crack'])"
+253,0.011623883131600713,"frozenset(['CRCKSCRN', 'work', u'crack'])"
+254,0.03169164718333472,"frozenset(['CRCKSCRN', 'phone', u'drop'])"
+255,0.030989367857412138,"frozenset(['CRCKSCRN', 'screen', u'drop'])"
+256,0.022563970114900227,"frozenset(['phone', 'CRCKSCRN', 'fell'])"
+257,0.014805920935317183,"frozenset(['screen', 'CRCKSCRN', 'fell'])"
+258,0.013712075084367156,"frozenset(['phone', 'CRCKSCRN', u'get'])"
+259,0.012680436932548127,"frozenset([u'go', 'phone', 'CRCKSCRN'])"
+260,0.011743901650604759,"frozenset(['pocket', 'phone', 'CRCKSCRN'])"
+261,0.06105197127567635,"frozenset(['phone', 'screen', 'CRCKSCRN'])"
+262,0.018908534977744463,"frozenset(['CRCKSCRN', 'phone', 'work'])"
+263,0.016075316261825366,"frozenset(['CRCKSCRN', 'screen', 'work'])"
+264,0.012271282890488882,"frozenset(['phone', 'LOST', u'lose'])"
+265,0.01559222950928059,"frozenset(['phone', u'charge', 'MLFUNC'])"
+266,0.015829742412899857,"frozenset(['phone', 'screen', 'MLFUNC'])"
+267,0.010554464387639297,"frozenset(['phone', 'OTHER', u'crack'])"
+268,0.011816531582050897,"frozenset(['phone', 'screen', 'OTHER'])"
+269,0.013338258923751437,"frozenset(['phone', u'drop', u'crack'])"
+270,0.013812714765160236,"frozenset(['screen', u'drop', u'crack'])"
+271,0.025340680789985668,"frozenset(['phone', 'screen', u'crack'])"
+272,0.019395041525267644,"frozenset(['phone', 'screen', u'drop'])"
+273,0.011298595490202368,"frozenset(['phone', 'screen', 'work'])"
+274,0.010898235206659024,"frozenset(['CRCKSCRN', 'screen', u'drop', u'crack'])"
+275,0.019506917675275483,"frozenset(['phone', 'screen', 'CRCKSCRN', u'crack'])"
+276,0.01492040264340381,"frozenset(['CRCKSCRN', 'phone', 'screen', u'drop'])"
