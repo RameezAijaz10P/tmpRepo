@@ -3,15 +3,19 @@ from mlxtend.frequent_patterns import apriori
 no_of_stores = 5
 frames=[]
 print "#### READING THE STORE FROM THE h5 #####"
-df = pd.read_hdf('./Stores/store_1.h5', 'df')
+df = pd.read_hdf('Stores/store_1.h5', 'df')
 
-print "#### running fillna #####"
-df = df.fillna(False)
+# df = df.fillna(False)
 
-print "#### training model #####"
-df_apriori = apriori(df, min_support=0.6, use_colnames=True)
+print "#### running apriori #####"
+df_apriori = apriori(df, min_support=0.00001, use_colnames=True)
+
+print "#### deleting dataframe #####"
 del df
-store = pd.HDFStore('./Stores/apriori_store.h5')
+
+
+print "#### creating store #####"
+store = pd.HDFStore('Stores/apriori_store.h5')
 store['df'] = df_apriori
 store.close()
 
