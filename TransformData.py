@@ -72,7 +72,7 @@ def create_transactions(keywords_array, process_no=1, long_keywords=False):
     print "Getting the data frame"
     df = pd.DataFrame(te_ary, columns=te.columns_)
     print "CREATING STORE"
-    store_name = 'Stores/store_'+str(process_no)+'.h5'
+    store_name = '/dev/Stores/store_'+str(process_no)+'.h5'
     store = pd.HDFStore(store_name)
     store['df'] = df
     store.close()

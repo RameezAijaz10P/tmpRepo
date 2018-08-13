@@ -3,7 +3,7 @@ from mlxtend.frequent_patterns import apriori
 no_of_stores = 5
 frames=[]
 print "#### READING THE STORE FROM THE h5 #####"
-df = pd.read_hdf('Stores/store_1.h5', 'df')
+df = pd.read_hdf('/dev/Stores/store_1.h5', 'df')
 
 # df = df.fillna(False)
 
@@ -15,7 +15,7 @@ del df
 
 
 print "#### creating store #####"
-store = pd.HDFStore('Stores/apriori_store.h5')
+store = pd.HDFStore('/dev/Stores/apriori_store.h5')
 store['df'] = df_apriori
 store.close()
 
