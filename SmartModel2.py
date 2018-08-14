@@ -41,8 +41,14 @@ for rule in rules_list:
         rules_dict[rule['associated_words']] = []
     rules_dict[rule['associated_words']].append(new_obj)
 
+
+idx = 0
 for rule in rules_dict:
-    print 'Rule:',  rule
+    print 'Rule #' + str(idx)+':',  rule
     print 'Perils:'
+    rules_dict[rule].sort(key=lambda x: x['confidence'], reverse=True)
     for match in rules_dict[rule]:
-        print "-->"+match['peril']
+        print "-->"+match['peril'], match['confidence'], match['support']
+    idx = idx + 1
+
+
