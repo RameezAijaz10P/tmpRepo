@@ -17,4 +17,4 @@ for idx, row in df.iterrows():
     if counters[df.at[idx, 'COVERED_EVENT_CODE']] > MIN:
         drop_idxs.append(idx)
 df = df.drop(drop_idxs)
-df.to_csv('ass.csv', index=False)
+df.to_csv('even-peril-data.csv', index=False)

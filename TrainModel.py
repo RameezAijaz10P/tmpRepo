@@ -1,21 +1,18 @@
 import pandas as pd
 from mlxtend.frequent_patterns import apriori
-no_of_stores = 5
-frames=[]
-print "#### READING THE STORE FROM THE h5 #####"
-df = pd.read_hdf('/dev/Stores/store_1.h5', 'df')
+from TransformData import store_dir
 
-# df = df.fillna(False)
+print "#### READING THE STORE FROM THE h5 #####"
+df = pd.read_hdf(store_dir + 'transaction_store.h5', 'df')
 
 print "#### running apriori #####"
-df_apriori = apriori(df, min_support=0.00001, use_colnames=True)
+df_apriori = apriori(df, min_support=0.0001, use_colnames=True)
 
 print "#### deleting dataframe #####"
 del df
 
-
 print "#### creating store #####"
-store = pd.HDFStore('/dev/Stores/apriori_store.h5')
+store = pd.HDFStore(store_dir + 'apriori_store.h5')
 store['df'] = df_apriori
 store.close()
 
