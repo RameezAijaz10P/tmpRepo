@@ -1,7 +1,7 @@
 import pandas as pd
 from mlxtend.frequent_patterns import association_rules
 # from TransformData import peril_types
-from TransformData import store_dir
+store_dir = 'Stores/'
 
 peril_types=['CRCKSCRN', 'LQDDMG', 'STOLEN', 'MLFUNC', 'UNRECOV']
 
@@ -50,5 +50,23 @@ for rule in rules_dict:
     for match in rules_dict[rule]:
         print "-->"+match['peril'], match['confidence'], match['support']
     idx = idx + 1
+
+
+def create_trie(*rules):
+    root = dict()
+    for rule in rules_dict:
+        current_dict = root
+        for word in rule:
+            current_dict = current_dict.setdefault(word, {})
+        current_dict['_peril'] = rules_dict[rule]
+    return root
+
+
+root = create_trie(rules_dict)
+
+store_name = 'Stores/trie.h5'
+store = pd.HDFStore(store_name)
+store['df'] = pd.DataFrame(root)
+store.close()
 
 
