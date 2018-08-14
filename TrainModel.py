@@ -6,7 +6,7 @@ print "#### READING THE STORE FROM THE h5 #####"
 df = pd.read_hdf(store_dir + 'transaction_store.h5', 'df')
 
 print "#### running apriori #####"
-df_apriori = apriori(df, min_support=0.0001, use_colnames=True)
+df_apriori = apriori(df, min_support=0.01, use_colnames=True)
 
 print "#### deleting dataframe #####"
 del df

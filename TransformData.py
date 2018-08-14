@@ -23,7 +23,7 @@ def clean_words(words):
             if word is not '':
                 word = WordNetLemmatizer().lemmatize(word, 'v')
                 word = singularize(word)
-                keywords.append(word)
+                keywords.append(str(word))
     return keywords
 
 
@@ -39,15 +39,16 @@ def create_transactions(keywords_array):
     all_transactions_arr = []
     for keywords in keywords_array:
         peril = keywords[0]
-        max_range = 5 if len(keywords) + 1 > 5 else len(keywords)
+        max_range = 5 if len(keywords) + 1 > 5 else len(keywords) + 1
         for length in range(0, max_range):
             for subset in itertools.combinations(keywords, length): # For each combination
-                if contains_peril(subset, peril):
+                if contains_peril(subset, peril) and len(subset) > 1:
                     all_transactions_arr.append(list(subset))
     print "Doing the Transaction Encoding and fitting the transaction array"
     te = TransactionEncoder()
     te_ary = te.fit(all_transactions_arr).transform(all_transactions_arr)
     df = pd.DataFrame(te_ary, columns=te.columns_)
+    print df
     store_name = store_dir + 'transaction_store.h5'
     store = pd.HDFStore(store_name)
     store['df'] = df

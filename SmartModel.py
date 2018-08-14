@@ -1,120 +1,67 @@
 import pandas as pd
 from mlxtend.frequent_patterns import association_rules
+# from TransformData import peril_types
+from TransformData import store_dir, peril_types
+
+df = pd.read_hdf('/Users/patrick.krisko/Desktop/apriori_store_0005.h5')
+df = association_rules(df, metric='confidence', min_threshold=.000000000000000000000000000001)
 
 
-keywords=['CRCKSCRN','LQDDMG','STOLEN','MLFUNC','UNRECOV']
+def keyify_set(words):
+    words = list(words)
+    words = map(lambda word: str(word), words)
+    words = sorted(words)
+    words = frozenset(words)
+    return words
 
-df = pd.read_hdf('/Users/patrick.krisko/Desktop/apriori_store_new.h5', 'df')
-df = association_rules(df, metric="confidence", min_threshold=.000000000000000000000000000001)
-print df
-# print df
-def has_peril(transaction):
-    for word in keywords:
-        if word in transaction and len(transaction) > 1:
-            return True
-    return False
 
-rules = []
+rules_list = []
 for idx, row in df.iterrows():
-    if has_peril(df.at[idx, 'antecedents']) or has_peril(df.at[idx, 'consequents']):
-        rules.append({
-            "consequents": list(df.at[idx, 'consequents']),
-            "antecedents": list(df.at[idx, 'antecedents']),
-            "combined": list(df.at[idx, 'consequents'])+list(df.at[idx, 'antecedents']),
-            "support": df.at[idx, 'support'],
-            "confidence": df.at[idx, 'confidence']
+    consequents = set(df.at[idx, 'consequents'])
+    consequent = consequents.pop()
+    if len(consequents) is 0 and consequent in peril_types:
+        rules_list.append({
+            'peril': consequent,
+            'associated_words': keyify_set(df.at[idx, 'antecedents']),
+            'support': df.at[idx, 'support'],
+            'confidence': df.at[idx, 'confidence']
         })
-    # print list(df.at[idx, 'itemsets'])
-    # if has_peril(df.at[idx, 'consequents']):
-    #     rules.append({
-    #         "rule": list(df.at[idx, 'consequents']),
-    #         "support": df.at[idx, 'support']
-    #     })
 
-def get_peril(rule_list):
-    for word in rule_list:
-        if word in keywords:
-            return word
-    return ""
+rules_dict = {}
+for rule in rules_list:
+    new_obj = {
+        'peril': rule['peril'],
+        'support': rule['support'],
+        'confidence': rule['confidence']
+    }
+    if rule['associated_words'] not in rules_dict:
+        rules_dict[rule['associated_words']] = []
+    rules_dict[rule['associated_words']].append(new_obj)
 
-def get_perilless(rule_list, peril):
-    perilless = []
-    for word in rule_list:
-        if not(word is peril):
-            perilless.append(word)
-    return perilless
+# idx = 0
+# for rule in rules_dict:
+#     print 'Rule #' + str(idx)+':',  rule
+#     print 'Perils:'
+#     rules_dict[rule].sort(key=lambda x: x['confidence'], reverse=True)
+#     for match in rules_dict[rule]:
+#         print "-->"+match['peril'], match['confidence'], match['support']
+#     idx = idx + 1
 
-prediction= {}
-def perilExistInPrediction(prediction_list, peril):
-    idx =0;
-    for prediction in prediction_list:
-        if peril is prediction['name']:
-            return idx
-        idx = idx +1
-    return -1
 
-# def getIndexOfPeril(prediction)
+def create_trie(*rules):
+    root = dict()
+    for rule in rules_dict:
+        current_dict = root
+        for word in rule:
+            current_dict = current_dict.setdefault(word, {})
+        current_dict['_peril'] = rules_dict[rule]
+    return root
 
-for rule in rules:
-    peril = get_peril(rule['combined'])
-    other_words = get_perilless(rule['combined'], peril)
-    confidence = rule['confidence']
-    support = rule['support']
-    # for word in other_words:
-    #     if not(word in prediction):
-    #         prediction[word] = [{
-    #             "name": peril,
-    #             "support": support,
-    #             "confidence": confidence
-    #         }]
-    #     else: # Word is in prediction
-    #         for peril_type_obj in prediction[word]:
-    #             if
 
-#
-# for rule in rules: # {antecedents: [...,...], consequents: [],
-#     print rule
-#     for word in rule['combined']:
-#         if word not in keywords and word not in prediction:
-#             prediction[word] = []
-#             continue
-#
-#
-#         if word in prediction: # we know its not a keyword
-#             # if len(prediction[word]) is 0: # prediction[word] = []
-#             #     prediction[word].append({
-#             #         "name": get_peril(rule['combined']),
-#             #         "support": rule['support'],
-#             #         "confidence": rule['confidence']
-#             #     })
-#             # else:
-#             #     # peril does exist
-#             peril = get_peril(rule['combined'])
-#
-#             if perilExistInPrediction(prediction[word], peril) > -1:
-#                 support = rule['support']
-#                 index = perilExistInPrediction(prediction[word], peril)
-#                 if support > prediction[word][index]['support']:
-#                     prediction[word][index] = {
-#                         "name": peril,
-#                         "support": rule['support'],
-#                         "confidence": rule['confidence']
-#                     }
-#             else: # peril does not exist
-#                 prediction[word].append({
-#                     "name": get_peril(rule['combined']),
-#                     "support": rule['support'],
-#                     "confidence": rule['confidence']
-#                 })
-            #
-            #
-            #
-            # if len(prediction[word]) >0:
-            #     peril = get_peril(rule, prediction[word]['name'])
+root = create_trie(rules_dict)
 
-# for key in prediction:
-#     print key
-# print prediction['still']
-# {
-#     crack: [{name : crk, support:0.5}]
-# }
+store_name = 'Stores/trie.h5'
+store = pd.HDFStore(store_name)
+store['df'] = pd.DataFrame(root)
+store.close()
+
