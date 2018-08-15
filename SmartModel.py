@@ -59,9 +59,7 @@ def create_trie(*rules):
 
 
 root = create_trie(rules_dict)
+with open('Stores/trie.pickle', 'wb') as handle:
+    pickle.dump(root, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-store_name = 'Stores/trie.h5'
-store = pd.HDFStore(store_name)
-store['df'] = pd.DataFrame(root)
-store.close()
 
