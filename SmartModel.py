@@ -1,16 +1,15 @@
 import pandas as pd
 from mlxtend.frequent_patterns import association_rules
 # from TransformData import peril_types
-from TransformData import store_dir, peril_types
+# from TransformData import store_dir, peril_types
 
 df = pd.read_hdf('/Users/patrick.krisko/Desktop/apriori_store_0005.h5')
 df = association_rules(df, metric='confidence', min_threshold=.000000000000000000000000000001)
-
+peril_types = ['LOST/UNREC', 'STOLEN', 'MLFUNC', 'CRCKSCRN', 'LQDDMG']
 
 def keyify_set(words):
     words = list(words)
     words = map(lambda word: str(word), words)
-    words = sorted(words)
     words = frozenset(words)
     return words
 
@@ -38,14 +37,8 @@ for rule in rules_list:
         rules_dict[rule['associated_words']] = []
     rules_dict[rule['associated_words']].append(new_obj)
 
-# idx = 0
-# for rule in rules_dict:
-#     print 'Rule #' + str(idx)+':',  rule
-#     print 'Perils:'
-#     rules_dict[rule].sort(key=lambda x: x['confidence'], reverse=True)
-#     for match in rules_dict[rule]:
-#         print "-->"+match['peril'], match['confidence'], match['support']
-#     idx = idx + 1
+for rule in rules_dict:
+    rules_dict[rule].sort(key=lambda x: x['confidence'], reverse=True)
 
 
 def create_trie(*rules):

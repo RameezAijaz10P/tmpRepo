@@ -44,11 +44,9 @@ def create_transactions(keywords_array):
             for subset in itertools.combinations(keywords, length): # For each combination
                 if contains_peril(subset, peril) and len(subset) > 1:
                     all_transactions_arr.append(list(subset))
-    print "Doing the Transaction Encoding and fitting the transaction array"
     te = TransactionEncoder()
     te_ary = te.fit(all_transactions_arr).transform(all_transactions_arr)
     df = pd.DataFrame(te_ary, columns=te.columns_)
-    print df
     store_name = store_dir + 'transaction_store.h5'
     store = pd.HDFStore(store_name)
     store['df'] = df

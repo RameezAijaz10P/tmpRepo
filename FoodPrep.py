@@ -1,15 +1,14 @@
-import itertools
 import pickle
 import re
 import pandas as pd
 from nltk.corpus import stopwords
-from mlxtend.preprocessing import TransactionEncoder
 from nltk.stem.wordnet import WordNetLemmatizer
 from pattern.text.en import singularize
 stop_words = set(stopwords.words('english'))
-df = pd.read_csv('testData.csv')
+df = pd.read_csv('even-peril-data.csv')
 
 testing_objects = []
+
 
 def clean_words(words):
     keywords = []
@@ -22,6 +21,8 @@ def clean_words(words):
                 word = singularize(word)
                 keywords.append(str(word))
     return keywords
+
+
 for idx, row in df.iterrows():
     keywords = clean_words(df.at[idx, 'FAILURE_DESCRIPTIVE_TEXT'].split())
     new_obj = {
@@ -56,29 +57,9 @@ def recurse_add_probs(entry, orig_word, dictionary, index, max_len):
             recurse_add_probs(entry, orig_word, dictionary[word], (index + 1), max_len)
 
 
-# print tries
-
-
-# def get_predicted_peril(test_keywords):
-#
-#     with open('Stores/trie.pickle', 'rb') as handle:
-#         trie = pickle.load(handle)
-#         root = trie
-#         all_perils = []
-#         if len(root) < 1:
-#             return False
-#         index = 0
-#         for keyword in test_keywords:
-#              if keyword in root:
-#                  all_perils.append({"level": index, "perils": root[keyword]['_peril']})
-#                  root = root[keyword]
-#              else:
-#                 return all_perils
-#              index = index + 1
-#         return all_perils
-
 def chop_off(num):
     return num - (num%.1)
+
 
 def get_winner(entry):
     winners_obj = {
@@ -96,23 +77,17 @@ def get_winner(entry):
                 winners_obj[peril_key]['support'] = peril_obj['support']
     highest = -1
     winner_peril = ""
-
     for peril in winners_obj: # Getting winner out of winner obj
         if winners_obj[peril]["confidence"] > highest:
-            if chop_off(winners_obj[peril]["confidence"]) == chop_off(highest): # If confidence is not higher or lower than 0.1 consider support for winner
+            if abs(winners_obj[peril]["confidence"] - highest) <= .1: # If confidence is not higher or lower than 0.1 consider support for winner
                 if winners_obj[peril]['support'] > winners_obj[winner_peril]['support']:
                     winner_peril = peril
                     highest = winners_obj[peril]["confidence"]
             else:
                 highest = winners_obj[peril]["confidence"]
                 winner_peril = peril
-
-
-
     return {'winner': winner_peril, 'confidence': highest, 'all_perils': winners_obj}
 
-
-# print tries
 
 summary = {"correct_count":0, "incorrect_count":0, "incorrect_entries":[]}
 
@@ -124,22 +99,31 @@ with open('Stores/trie.pickle', 'rb') as handle:
             orig_word = entry['keywords'][idx]
             recurse_add_probs(entry, orig_word, trie, idx, keywords_len)
             entry['winners'] = get_winner(entry)
-        if entry['real_peril'] == entry['winners']['winner']:
+        # if 'winners' not in entry:
+        #     print entry
+        if 'winners' in entry and entry['real_peril'] == entry['winners']['winner']:
             summary["correct_count"] = summary["correct_count"] + 1
         else:
             summary["incorrect_count"] = summary["incorrect_count"] + 1
-            summary["incorrect_entries"].append(entry)
+            if 'winners' in entry:
+                summary["incorrect_entries"].append(
+                    {
+                        'real_peril': entry['real_peril'],
+                        'keywords': entry['keywords'],
+                        'winner': entry['winners']
+                    }
+                )
 
 
 
 
-# print testing_objects
-for obj in testing_objects:
-    print ""
-    print ""
-    print "Keywords", obj["keywords"]
-    print "real peril", obj["real_peril"]
-    print "winner", obj['winners']
+# # print testing_objects
+# for obj in testing_objects:
+#     print ""
+#     print ""
+#     print "Keywords", obj["keywords"]
+#     print "real peril", obj["real_peril"]
+#     print "winner", obj['winners']
 
 print "\n\n ########## SUMMARY ########### \n\n"
 
@@ -147,18 +131,16 @@ print "correct_count", summary["correct_count"]
 
 print "\n\n incorrect_count", summary["incorrect_count"]
 
+# for incorrect_shit in summary['incorrect_entries']:
+#     print "\n"
+#     print "Actual Peril", incorrect_shit['real_peril']
+#     print "Keywords", incorrect_shit['keywords']
+#     print "Model Predicted Peril", incorrect_shit['winner']['winner']
+#     for peril in incorrect_shit['winner']['all_perils']:
+#         if incorrect_shit['winner']['all_perils'][peril]['confidence'] >= .5:
+#             print "--->", peril, incorrect_shit['winner']['all_perils'][peril]
 
-
-# index = 0
-# for entry in testing_objects:
-#     predicted_peril = get_predicted_peril(entry['keywords'])
-#     entry['predicted_perils'] = predicted_peril
-#     print entry
-#     index = index + 1
-    # keywords_len = len(entry['keywords'])
-    # for idx in range(0, keywords_len):
-    #     recurse_add_probs(entry, tries, idx, keywords_len)
-
+        #     print incorrect_shit['winner']['peril']
 
 
 
