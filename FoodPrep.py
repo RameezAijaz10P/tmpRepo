@@ -5,9 +5,9 @@ from nltk.corpus import stopwords
 from nltk.stem.wordnet import WordNetLemmatizer
 from pattern.text.en import singularize
 stop_words = set(stopwords.words('english'))
-df = pd.read_csv('even-peril-data.csv')
+test_df = pd.read_csv('testData.csv')
 
-testing_objects = []
+test_objects = []
 
 
 def clean_words(words):
@@ -23,15 +23,14 @@ def clean_words(words):
     return keywords
 
 
-for idx, row in df.iterrows():
-    keywords = clean_words(df.at[idx, 'FAILURE_DESCRIPTIVE_TEXT'].split())
+for idx, row in test_df.iterrows():
+    keywords = clean_words(test_df.at[idx, 'FAILURE_DESCRIPTIVE_TEXT'].split())
     new_obj = {
-        'real_peril': df.at[idx, 'COVERED_EVENT_CODE'],
+        'real_peril': test_df.at[idx, 'COVERED_EVENT_CODE'],
         'keywords': keywords,
         'predicted_perils': {},
         'true_positive': -1,
-        'false_positive': -1,
-        'num_pred_perils': -1
+        'false_positive': -1
     }
     for word in keywords:
         new_obj['predicted_perils'][word] = {
@@ -41,27 +40,27 @@ for idx, row in df.iterrows():
             'STOLEN': {},
             'MLFUNC': {}
         }
-    testing_objects.append(new_obj)
+    test_objects.append(new_obj)
 
 
-def recurse_add_probs(entry, orig_word, dictionary, index, max_len):
-    if index < max_len:
-        word = entry['keywords'][index]
-        if word in dictionary:
-            for peril in dictionary[word]['_peril']:
-                peril_name = peril['peril']
+def traverse_trie(entry, orig_word, dictionary, index, max_len):
+    if index < max_len: # Outside of keywords array
+        word = entry['keywords'][index] # Word can be at deeper level of trie dictionary
+        if word in dictionary: # If word is in current level of trie dictionary
+            for peril_obj in dictionary[word]['_peril']:
+                peril_name = peril_obj['peril']
                 entry['predicted_perils'][orig_word][peril_name] = {
-                    'confidence': peril['confidence'],
-                    'support': peril['support']
+                    'confidence': peril_obj['confidence'],
+                    'support': peril_obj['support']
                 }
-            recurse_add_probs(entry, orig_word, dictionary[word], (index + 1), max_len)
+            traverse_trie(entry, orig_word, dictionary[word], (index + 1), max_len)
 
 
 def chop_off(num):
     return num - (num%.1)
 
 
-def get_winner(entry):
+def get_best_2(test_obj):
     winners_obj = {
         'CRCKSCRN': {'confidence': -1, 'support': -1},
         'LQDDMG': {'confidence': -1, 'support': -1},
@@ -69,61 +68,55 @@ def get_winner(entry):
         'LOST/UNREC': {'confidence': -1, 'support': -1},
         'STOLEN': {'confidence': -1, 'support': -1}
     }
-    for key in entry['predicted_perils']: # Collecting all the perils from all keywords to one winner obj replacing the higher conf with lower
+    for keyword in test_obj['predicted_perils']:  # Collecting all the perils from all keywords to one winner obj replacing the higher conf with lower
         for peril_key in winners_obj:
-            peril_obj = entry['predicted_perils'][key][peril_key]
+            peril_obj = test_obj['predicted_perils'][keyword][peril_key]
             if peril_obj != {} and peril_obj['confidence'] > winners_obj[peril_key]['confidence']:
                 winners_obj[peril_key]['confidence'] = peril_obj['confidence']
                 winners_obj[peril_key]['support'] = peril_obj['support']
-    highest = -1
-    winner_peril = ""
-    for peril in winners_obj: # Getting winner out of winner obj
-        if winners_obj[peril]["confidence"] > highest:
-            if abs(winners_obj[peril]["confidence"] - highest) <= .1: # If confidence is not higher or lower than 0.1 consider support for winner
-                if winners_obj[peril]['support'] > winners_obj[winner_peril]['support']:
-                    winner_peril = peril
-                    highest = winners_obj[peril]["confidence"]
-            else:
-                highest = winners_obj[peril]["confidence"]
-                winner_peril = peril
-    return {'winner': winner_peril, 'confidence': highest, 'all_perils': winners_obj}
+    numba_1 = { # REFACTOR THE OBJECTS
+        "peril": "",
+        "confidence": -1
+    }
+    numba_2 = { # JUST. DO IT.
+        "peril": "",
+        "confidence": -1
+    }
+    for peril_name in winners_obj: # Getting winner out of winner obj
+        curr_conf = winners_obj[peril_name]["confidence"]
+        if numba_1["peril"] == "":
+            numba_1["peril"] = peril_name
+            numba_1["confidence"] = curr_conf
+        elif curr_conf > numba_1["confidence"]:
+            numba_2["confidence"] = numba_1["confidence"]
+            numba_2["peril"] = numba_1["peril"]
+            numba_1["peril"] = peril_name
+            numba_1["confidence"] = curr_conf
+    return {"numba1": numba_1, "numba2": numba_2}
 
 
 summary = {"correct_count":0, "incorrect_count":0, "incorrect_entries":[]}
 
 with open('Stores/trie.pickle', 'rb') as handle:
     trie = pickle.load(handle)
-    for entry in testing_objects:
-        keywords_len = len(entry['keywords'])
+    for test_obj in test_objects:
+        keywords_len = len(test_obj['keywords'])
         for idx in range(0, keywords_len):
-            orig_word = entry['keywords'][idx]
-            recurse_add_probs(entry, orig_word, trie, idx, keywords_len)
-            entry['winners'] = get_winner(entry)
-        # if 'winners' not in entry:
-        #     print entry
-        if 'winners' in entry and entry['real_peril'] == entry['winners']['winner']:
+            orig_word = test_obj['keywords'][idx]
+            traverse_trie(test_obj, orig_word, trie, idx, keywords_len)
+        test_obj['winners'] = get_best_2(test_obj)
+        if test_obj['real_peril'] == test_obj['winners']['numba1']['peril'] or test_obj['real_peril'] == test_obj['winners']['numba2']['peril']:
             summary["correct_count"] = summary["correct_count"] + 1
         else:
             summary["incorrect_count"] = summary["incorrect_count"] + 1
-            if 'winners' in entry:
-                summary["incorrect_entries"].append(
-                    {
-                        'real_peril': entry['real_peril'],
-                        'keywords': entry['keywords'],
-                        'winner': entry['winners']
-                    }
-                )
+            summary["incorrect_entries"].append(
+                {
+                    'real_peril': test_obj['real_peril'],
+                    'keywords': test_obj['keywords'],
+                    'winner': test_obj['winners']
+                }
+            )
 
-
-
-
-# # print testing_objects
-# for obj in testing_objects:
-#     print ""
-#     print ""
-#     print "Keywords", obj["keywords"]
-#     print "real peril", obj["real_peril"]
-#     print "winner", obj['winners']
 
 print "\n\n ########## SUMMARY ########### \n\n"
 
@@ -139,8 +132,34 @@ print "\n\n incorrect_count", summary["incorrect_count"]
 #     for peril in incorrect_shit['winner']['all_perils']:
 #         if incorrect_shit['winner']['all_perils'][peril]['confidence'] >= .5:
 #             print "--->", peril, incorrect_shit['winner']['all_perils'][peril]
+#             #
+#             # print incorrect_shit['winner']['peril']
 
-        #     print incorrect_shit['winner']['peril']
+# def get_winner(entry):
+#     winners_obj = {
+#         'CRCKSCRN': {'confidence': -1, 'support': -1},
+#         'LQDDMG': {'confidence': -1, 'support': -1},
+#         'MLFUNC': {'confidence': -1, 'support': -1},
+#         'LOST/UNREC': {'confidence': -1, 'support': -1},
+#         'STOLEN': {'confidence': -1, 'support': -1}
+#     }
+#     for key in entry['predicted_perils']: # Collecting all the perils from all keywords to one winner obj replacing the higher conf with lower
+#         for peril_key in winners_obj:
+#             peril_obj = entry['predicted_perils'][key][peril_key]
+#             if peril_obj != {} and peril_obj['confidence'] > winners_obj[peril_key]['confidence']:
+#                 winners_obj[peril_key]['confidence'] = peril_obj['confidence']
+#                 winners_obj[peril_key]['support'] = peril_obj['support']
+#     highest_prod = -1
+#     highest_conf = -1
+#     winner_peril = ""
+#     for peril in winners_obj: # Getting winner out of winner obj
+#         curr_conf = winners_obj[peril]["confidence"]
+#         curr_product = curr_conf * winners_obj[peril]["support"]
+#         if curr_conf > highest_conf:
+#             winner_peril = peril
+#             highest_conf = curr_conf
+#             highest_prod = curr_product
+#     return {'winner': winner_peril, 'confidence': highest_prod, 'all_perils': winners_obj}
 
 
 

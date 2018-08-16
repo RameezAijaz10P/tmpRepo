@@ -1,11 +1,11 @@
 import pandas as pd
 from mlxtend.frequent_patterns import association_rules
-# from TransformData import peril_types
-# from TransformData import store_dir, peril_types
+import pickle
 
 df = pd.read_hdf('/Users/patrick.krisko/Desktop/apriori_store_0005.h5')
 df = association_rules(df, metric='confidence', min_threshold=.000000000000000000000000000001)
 peril_types = ['LOST/UNREC', 'STOLEN', 'MLFUNC', 'CRCKSCRN', 'LQDDMG']
+
 
 def keyify_set(words):
     words = list(words)
