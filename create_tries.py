@@ -1,10 +1,10 @@
 import pandas as pd
 from mlxtend.frequent_patterns import association_rules
 import pickle
+from common import peril_types, apriori_file_name, stores_dir
 
-df = pd.read_hdf('/Users/patrick.krisko/Desktop/apriori_store_001.h5')
+df = pd.read_hdf(stores_dir + apriori_file_name)
 df = association_rules(df, metric='confidence', min_threshold=.000000000000000000000000000001)
-peril_types = ['LOST/UNREC', 'STOLEN', 'MLFUNC', 'CRCKSCRN', 'LQDDMG']
 
 
 def keyify_set(words):
@@ -52,7 +52,7 @@ def create_trie(*rules):
 
 
 root = create_trie(rules_dict)
-with open('Stores/trie.pickle', 'wb') as handle:
+with open(stores_dir + 'trie.pickle', 'wb') as handle:
     pickle.dump(root, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 

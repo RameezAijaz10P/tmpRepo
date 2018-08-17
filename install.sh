@@ -6,7 +6,7 @@ sudo apt-get python2.7
 sudo apt-get python-pip
 
 echo 'Initializing Virtual Environment, getting Python Dependencies'
-source /venv/bin/activate
+source ./venv/bin/activate
 pip install pandas
 pip install nltk
 pip install mlxtend
@@ -14,11 +14,7 @@ pip install pattern
 pip install tables
 
 echo 'Getting NLTK packages'
-python
-import nltk
-nltk.download('stopwords')
-nltk.download('wordnet')
-exit()
+python ./HelperScripts/install.py
 
 echo 'Creating Store directories and files'
 sudo mkdir /dev/Stores
