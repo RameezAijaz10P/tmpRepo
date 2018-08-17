@@ -2,7 +2,7 @@ import pandas as pd
 from mlxtend.frequent_patterns import association_rules
 import pickle
 
-df = pd.read_hdf('/Users/patrick.krisko/Desktop/apriori_store_0005.h5')
+df = pd.read_hdf('/Users/patrick.krisko/Desktop/apriori_store_001.h5')
 df = association_rules(df, metric='confidence', min_threshold=.000000000000000000000000000001)
 peril_types = ['LOST/UNREC', 'STOLEN', 'MLFUNC', 'CRCKSCRN', 'LQDDMG']
 
