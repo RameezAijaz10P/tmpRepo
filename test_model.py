@@ -1,6 +1,6 @@
 import pickle
 import pandas as pd
-from common import clean_words, peril_types
+from common import clean_words, peril_types, stores_dir, pkl_file_name
 
 test_df = pd.read_csv('CSVs/testData.csv')
 test_objects = []
@@ -78,23 +78,22 @@ for idx, row in test_df.iterrows():
     NewTestObj = TestObject(curr_peril, keywords)
     test_objects.append(NewTestObj)
 
-with open('Stores/trie.pickle', 'rb') as handle:
+with open(stores_dir + pkl_file_name, 'rb') as handle:
     trie = pickle.load(handle)
     for test_obj in test_objects:
         for idx in range(0, test_obj.num_keywords()):
             start_word = test_obj.keywords[idx]
             traverse_trie(test_obj, start_word, trie, idx)
         test_obj.winners = test_obj.get_best_2()
-        if test_obj.real_peril == test_obj.winners['primary']['peril'] \
-                or test_obj.real_peril == test_obj.winners['secondary']['peril']:
+        if test_obj.real_peril == test_obj.winners['primary']['peril'] or test_obj.real_peril == test_obj.winners['secondary']['peril']:
             summary['correct_count'] = summary['correct_count'] + 1
         else:
             summary['incorrect_count'] = summary['incorrect_count'] + 1
             summary['incorrect_entries'].append(test_obj.get_info())
 
 
-print '\n\n ########## SUMMARY ########### \n\n'
-print 'correct_count', summary['correct_count']
+print '\n\n ########## SUMMARY ###########'
+print '\n\n correct_count', summary['correct_count']
 print '\n\n incorrect_count', summary['incorrect_count']
 
 

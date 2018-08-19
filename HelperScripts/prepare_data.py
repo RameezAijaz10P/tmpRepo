@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 
-MIN = 3229
-df = pd.read_csv("mega-data.csv")
+MIN = 3079
+df = pd.read_csv("CSVs/even-mega-data.csv")
 df = df.drop_duplicates()
 # REMOVALS
 df = df.loc[df['COVERED_EVENT_CODE']!='OTHER',:]
@@ -18,3 +18,4 @@ for idx, row in df.iterrows():
         drop_idxs.append(idx)
 df = df.drop(drop_idxs)
 df.to_csv('even-mega-data.csv', index=False)
+print len(drop_idxs)

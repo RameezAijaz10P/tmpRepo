@@ -1,20 +1,29 @@
 import pandas as pd
 from mlxtend.frequent_patterns import association_rules
 import pickle
-from common import peril_types, apriori_file_name, stores_dir
+from common import peril_types, apriori_file_name, stores_dir, pkl_file_name
 
 df = pd.read_hdf(stores_dir + apriori_file_name)
 df = association_rules(df, metric='confidence', min_threshold=.000000000000000000000000000001)
+rules_list = []
+rules_dict = {}
 
 
 def keyify_set(words):
-    words = list(words)
-    words = map(lambda word: str(word), words)
-    words = frozenset(words)
-    return words
+    words = map(lambda word: str(word), list(words))
+    return frozenset(words)
 
 
-rules_list = []
+def create_trie():
+    rt = dict()
+    for key in rules_dict:
+        current_dict = rt
+        for word in key:
+            current_dict = current_dict.setdefault(word, {})
+        current_dict['_peril'] = rules_dict[key]
+    return rt
+
+
 for idx, row in df.iterrows():
     consequents = set(df.at[idx, 'consequents'])
     consequent = consequents.pop()
@@ -26,7 +35,6 @@ for idx, row in df.iterrows():
             'confidence': df.at[idx, 'confidence']
         })
 
-rules_dict = {}
 for rule in rules_list:
     new_obj = {
         'peril': rule['peril'],
@@ -41,18 +49,8 @@ for rule in rules_dict:
     rules_dict[rule].sort(key=lambda x: x['confidence'], reverse=True)
 
 
-def create_trie(*rules):
-    root = dict()
-    for rule in rules_dict:
-        current_dict = root
-        for word in rule:
-            current_dict = current_dict.setdefault(word, {})
-        current_dict['_peril'] = rules_dict[rule]
-    return root
-
-
-root = create_trie(rules_dict)
-with open(stores_dir + 'trie.pickle', 'wb') as handle:
+root = create_trie()
+with open(stores_dir + pkl_file_name, 'wb') as handle:
     pickle.dump(root, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
