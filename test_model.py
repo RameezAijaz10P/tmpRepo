@@ -4,7 +4,7 @@ from common import clean_words, peril_types, stores_dir, pkl_file_name
 
 test_df = pd.read_csv('CSVs/testData.csv')
 test_objects = []
-summary = {'correct_count': 0, 'incorrect_count': 0, 'incorrect_entries': []}
+summary = {'correct_count': 0, 'correct_count_1':0, 'correct_count_2':0,'incorrect_count': 0, 'incorrect_entries': []}
 
 
 class TestObject:
@@ -85,7 +85,11 @@ with open(stores_dir + pkl_file_name, 'rb') as handle:
             start_word = test_obj.keywords[idx]
             traverse_trie(test_obj, start_word, trie, idx)
         test_obj.winners = test_obj.get_best_2()
-        if test_obj.real_peril == test_obj.winners['primary']['peril'] or test_obj.real_peril == test_obj.winners['secondary']['peril']:
+        if test_obj.real_peril == test_obj.winners['primary']['peril']:
+            summary['correct_count'] = summary['correct_count'] + 1
+            summary['correct_count_1'] = summary['correct_count_1'] + 1
+        elif test_obj.real_peril == test_obj.winners['secondary']['peril']:
+            summary['correct_count_2'] = summary['correct_count_2'] + 1
             summary['correct_count'] = summary['correct_count'] + 1
         else:
             summary['incorrect_count'] = summary['incorrect_count'] + 1
@@ -93,9 +97,13 @@ with open(stores_dir + pkl_file_name, 'rb') as handle:
 
 
 print '\n\n ########## SUMMARY ###########'
-print '\n\n correct_count', summary['correct_count']
+print '\n\n total correct_count', summary['correct_count']
+print '\n\n correct_count_1', summary['correct_count_1']
+print '\n\n correct_count_2', summary['correct_count_2']
 print '\n\n incorrect_count', summary['incorrect_count']
 
-
+for entry in summary['incorrect_entries'][:10]:
+    print entry
+    print '\n\n'
 
 
