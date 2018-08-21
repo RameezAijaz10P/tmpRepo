@@ -23,8 +23,7 @@ def create_transactions(keywords_array):
 df = pd.read_csv('CSVs/trainData.csv')
 
 for idx, description in df['FAILURE_DESCRIPTIVE_TEXT'].iteritems():
-    if idx < 10:
-        description_keywords = [df.at[idx, 'COVERED_EVENT_CODE']] + clean_words(description.split())
-        description_key_word_array.append(description_keywords[:max_keywords])
+    description_keywords = [df.at[idx, 'COVERED_EVENT_CODE']] + clean_words(description)
+    description_key_word_array.append(description_keywords[:max_keywords])
 
 create_transactions(description_key_word_array)

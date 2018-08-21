@@ -1,14 +1,16 @@
+from __future__ import division
 import pickle
 import pandas as pd
 from common import clean_words, peril_types, stores_dir, pkl_file_name
 
+
 test_df = pd.read_csv('CSVs/testData.csv')
 test_objects = []
-summary = {'correct_count': 0, 'correct_count_1':0, 'correct_count_2':0,'incorrect_count': 0, 'incorrect_entries': []}
+summary = {'correct_count': 0, 'correct_count_1': 0, 'correct_count_2': 0,'incorrect_count': 0, 'incorrect_entries': []}
 
 
 class TestObject:
-    def __init__(self, real_peril, keywords):
+    def __init__(self, real_peril, keywords, story):
         self.real_peril = real_peril
         self.keywords = keywords
         self.predicted_perils = {}
@@ -19,12 +21,14 @@ class TestObject:
         self.true_positive = -1
         self.false_positive = -1
         self.winners = {}
+        self.story = story
 
     def get_info(self):
         return {
             'real_peril': self.real_peril,
             'keywords': self.keywords,
-            'winners': self.winners
+            'winners': self.winners,
+            'story': self.story
         }
 
     def num_keywords(self):
@@ -61,7 +65,7 @@ class TestObject:
 def traverse_trie(entry, orig_word, dictionary, index):
     if index < entry.num_keywords():  # Outside of keywords array
         word = entry.keywords[index]  # Word can be at deeper level of trie dictionary
-        if word in dictionary:  # If word is in current level of trie dictionary
+        if word in dictionary and '_peril' in dictionary[word]:  # If word is in current level of trie dictionary
             for peril_obj in dictionary[word]['_peril']:
                 peril_name = peril_obj['peril']
                 entry.predicted_perils[orig_word][peril_name] = {
@@ -73,9 +77,9 @@ def traverse_trie(entry, orig_word, dictionary, index):
 
 # Create a "test object" for each row in the Data Frame.
 for idx, row in test_df.iterrows():
-    keywords = clean_words(test_df.at[idx, 'FAILURE_DESCRIPTIVE_TEXT'].split())
+    keywords = clean_words(test_df.at[idx, 'FAILURE_DESCRIPTIVE_TEXT'])
     curr_peril = test_df.at[idx, 'COVERED_EVENT_CODE']
-    NewTestObj = TestObject(curr_peril, keywords)
+    NewTestObj = TestObject(curr_peril, keywords, test_df.at[idx, 'FAILURE_DESCRIPTIVE_TEXT'])
     test_objects.append(NewTestObj)
 
 with open(stores_dir + pkl_file_name, 'rb') as handle:
@@ -86,24 +90,38 @@ with open(stores_dir + pkl_file_name, 'rb') as handle:
             traverse_trie(test_obj, start_word, trie, idx)
         test_obj.winners = test_obj.get_best_2()
         if test_obj.real_peril == test_obj.winners['primary']['peril']:
-            summary['correct_count'] = summary['correct_count'] + 1
-            summary['correct_count_1'] = summary['correct_count_1'] + 1
+            summary['correct_count'] += 1
+            summary['correct_count_1'] += 1
         elif test_obj.real_peril == test_obj.winners['secondary']['peril']:
-            summary['correct_count_2'] = summary['correct_count_2'] + 1
-            summary['correct_count'] = summary['correct_count'] + 1
+            summary['correct_count_2'] += 1
+            summary['correct_count'] += 1
         else:
-            summary['incorrect_count'] = summary['incorrect_count'] + 1
+            summary['incorrect_count'] += 1
             summary['incorrect_entries'].append(test_obj.get_info())
 
+total = summary['correct_count'] + summary['incorrect_count']
+print '########## SUMMARY ###########'
+print '######### TESTING %d ROWS ###########\n\n' % total
+print 'Correct Within Top 2', summary['correct_count'], "%.4f%%" % ((summary['correct_count']/ total) * 100)
+print 'First Winner Correct', summary['correct_count_1'], "%.4f%%" % ((summary['correct_count_1']/total) * 100)
+print 'Second Winner Correct', summary['correct_count_2'], "%.4f%%" % ((summary['correct_count_2']/total) * 100)
+print 'Incorrect', summary['incorrect_count'], "%.4f%%" % ((summary['incorrect_count']/total) * 100)
 
-print '\n\n ########## SUMMARY ###########'
-print '\n\n total correct_count', summary['correct_count']
-print '\n\n correct_count_1', summary['correct_count_1']
-print '\n\n correct_count_2', summary['correct_count_2']
-print '\n\n incorrect_count', summary['incorrect_count']
+'''
+bad_columns = ['actual', 'story', 'keywords', 'top', 'confidence', 'second', 'confidence']
+rows = []
 
-for entry in summary['incorrect_entries'][:10]:
-    print entry
-    print '\n\n'
+for entry in summary['incorrect_entries']:
+    rows.append([
+        entry['real_peril'],
+        entry['story'],
+        entry['keywords'],
+        entry['winners']['primary']['peril'],
+        entry['winners']['primary']['confidence'],
+        entry['winners']['secondary']['peril'],
+        entry['winners']['secondary']['confidence']
+    ])
 
-
+bad_df = pd.DataFrame(rows, columns=bad_columns)
+bad_df.to_csv('CSVs/wrong.csv')
+'''

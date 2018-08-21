@@ -1,12 +1,12 @@
 import pandas as pd
 from mlxtend.frequent_patterns import apriori
-from common import stores_dir, apriori_file_name, transaction_file_name
+from common import stores_dir, apriori_file_name, transaction_file_name, support
 
 print "#### READING THE STORE FROM THE h5 #####"
 df = pd.read_hdf(stores_dir + transaction_file_name, 'df')
 
 print "#### running apriori #####"
-df_apriori = apriori(df, min_support=0.01, use_colnames=True)
+df_apriori = apriori(df, min_support=float(support), use_colnames=True)
 
 print "#### deleting dataframe #####"
 del df

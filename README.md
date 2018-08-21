@@ -13,8 +13,5 @@
 # Apriori Repo
 1.  Get dependencies
     * Linux Only: Utilize ./install.sh
-2.  Run python scripts, in this order:
-    1.  generate_transactions.py
-    2.  train_model.py
-    3.  create_tries.py
-    4.  test_model.py 
+2.  Run ./run_all.sh and follow prompts
+    1. .01 Confidence level suggested for first time run
