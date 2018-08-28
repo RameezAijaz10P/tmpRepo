@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo 'Updating...'
 sudo apt-get update
 
@@ -15,16 +16,5 @@ pip install tables
 
 echo 'Getting NLTK packages'
 python ./HelperScripts/install.py
-
-echo 'Creating Store directories and files'
-sudo mkdir /dev/Stores
-sudo touch transaction_store.h5
-sudo touch apriori_store_01.h5
-sudo touch apriori_store_001.h5
-sudo touch apriori_store_0005.h5
-sudo chmod a+w transaction_store.h5
-sudo chmod a+w apriori_store_01.h5
-sudo chmod a+w apriori_store_001.h5
-sudo chmod a+w apriori_store_0005.h5
 
 echo 'Done!'

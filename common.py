@@ -18,7 +18,7 @@ stop_words = set(stopwords.words('english'))
 
 
 def clean_words(description):
-    words = re.split("[/ ]+", description)
+    words = re.split("[/ ]+", str(description))
     keywords = []
     for word in words:
         word = word.lower()
